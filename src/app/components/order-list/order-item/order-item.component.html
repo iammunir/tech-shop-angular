@@ -1,0 +1,25 @@
+<mat-card class="playlist-card my-2">
+    <mat-card-title>{{ order.totalPrice }}</mat-card-title>
+    <mat-card-subtitle>
+      By <span>{{ order.customerName }}</span> - <span>{{ order.email }}</span>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-list>
+        <mat-list-item *ngFor="let item of order.items">
+          <mat-icon matListIcon>loyalty</mat-icon>
+          <h3 matLine>{{ item.category }}</h3>
+          <p matLine>
+            <span>{{ item.name }}</span>
+            <span class="demo-2"> - <span>{{ item.price | currency : 'USD' : 'symbol' : '1.0-0' }}</span>
+            </span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="openConfirmationDialog()">DELETE</button>
+      <button mat-button (click)="openFormDialog()">EDIT</button>
+    </mat-card-actions>
+  </mat-card>
+  

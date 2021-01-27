@@ -1,0 +1,5 @@
+<button mat-raised-button color="accent" (click)="openFormDialog()">
+    <mat-icon>add_shopping_cart</mat-icon> Add New Order
+</button>
+
+<mat-slide-toggle (change)="onChangeMode($event)"> Switch to {{darkMode ? 'light' : 'dark'}}</mat-slide-toggle>

@@ -1,0 +1,17 @@
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .button-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .button-actions button {
+    margin-bottom: 10px;
+  }
+  

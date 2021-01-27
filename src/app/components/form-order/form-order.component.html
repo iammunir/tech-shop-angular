@@ -1,0 +1,79 @@
+<form [formGroup]="orderForm" (submit)="onSubmit()">
+    <h2 mat-dialog-title>Add New Order</h2>
+    <input type="hidden" formControlName="id" />
+    <div mat-dialog-content>
+      <mat-form-field style="width: 100%">
+        <mat-label>Customer Name *</mat-label>
+        <input matInput formControlName="customerName" />
+      </mat-form-field>
+  
+      <mat-form-field style="width: 100%">
+        <mat-label>Email *</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <ng-container formArrayName="items">
+        <div
+          class="row"
+          *ngFor="let _ of orderForm.get('items')['controls']; let i = index"
+        >
+          <ng-container [formGroupName]="i">
+            <mat-form-field class="col-md-3">
+              <mat-label>Select Category *</mat-label>
+              <mat-select (valueChange)="changeCategory($event, i)" formControlName="category">
+                <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field class="col-md-3">
+              <mat-label>Select Item *</mat-label>
+              <mat-select (valueChange)="changeItem($event, i)" formControlName="name">
+                <mat-option *ngFor="let item of getCategoryItems(i)" [value]="item.name">{{ item.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field class="col-md-3 duration">
+              <input matInput type="number" formControlName="price" readonly />
+            </mat-form-field>
+  
+            <div class="col-md-1"></div>
+  
+            <div class="button-container col-md-2">
+              <button
+                mat-icon-button
+                color="accent"
+                type="button"
+                *ngIf="i + 1 === orderForm.get('items')['controls'].length"
+                (click)="addItem()"
+              >
+                <mat-icon>add_circle</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                type="button"
+                *ngIf="orderForm.get('items')['controls'].length !== 1"
+                (click)="removeItem(i)"
+              >
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <div mat-dialog-actions class="button-actions">
+      <button type="button" mat-raised-button color="warn" (click)="onClickCancel()">
+        CANCEL
+      </button>
+      <button
+        type="submit"
+        mat-raised-button
+        color="accent"
+        [mat-dialog-close]
+        [disabled]="orderForm.invalid"
+      >
+        {{getButtonName()}}
+      </button>
+    </div>
+  </form>
+  
